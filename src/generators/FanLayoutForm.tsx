@@ -66,7 +66,7 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
     }
 
     function removeFanRing(ring: FanRing) {
-        const newFanRings = fanRings.filter(r => r != ring);
+        const newFanRings = fanRings.filter(r => r !== ring);
         setFanRings(newFanRings);
     }
 
