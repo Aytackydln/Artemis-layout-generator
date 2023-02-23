@@ -26,4 +26,4 @@ jobs:
       - name: Deploy react app to github pages
         uses: tanwanimohit/deploy-react-to-ghpages@v1.0.1
         env:
-          PUBLIC_URL: https://${{ steps.split.outputs._0 }}.github.io/steps.split.outputs._1
+          PUBLIC_URL: https://${{ steps.split.outputs._0 }}.github.io/steps.split.outputs._1 }}
