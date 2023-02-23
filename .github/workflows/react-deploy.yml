@@ -11,8 +11,19 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      PUBLIC_URL: Project-Aurora/Project-Aurora.sln
+
     steps:
+      - uses: rishabhgupta/split-by@v1
+        id: split
+        with:
+          string: ${{github.repository}}
+          split-by: '/'
+
       - uses: actions/checkout@v2
 
       - name: Deploy react app to github pages
         uses: tanwanimohit/deploy-react-to-ghpages@v1.0.1
+        env:
+          PUBLIC_URL: https://${{ steps.split.outputs._0 }}.github.io/steps.split.outputs._1
