@@ -73,24 +73,23 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
     return <Row className='justify-content-md-center'>
         <Col lg={3} sm={12}>
             <h3>Options</h3>
-            <Form.Label>
-                Fan Size(mm)
-            </Form.Label>
-            <Form.Control type='number' defaultValue={defaultFanSize} onChange={
-                (event) => setFanSize(Number(event.target.value))
-            }/>
-            <Form.Label>
-                Led Shape
-            </Form.Label>
-            <Form.Select defaultValue={defaultLedShape} onChange={
-                (event) => setLedShape(event.target.value as LedShape)
-            }>
-                <option value={LedShape.Circle}>Circle</option>
-                <option value={LedShape.Rectangle}>Rectangle</option>
-            </Form.Select>
-            <Button id='generateBtn' variant='primary' type='button' onClick={submitClicked}>Generate</Button>
-        </Col>
-        <Col lg={3} sm={12} className='bg-light align-content-start'>
+            <Row>
+                <Form.Label>
+                    Fan Size(mm)
+                    <Form.Control type='number' defaultValue={defaultFanSize} onChange={
+                        (event) => setFanSize(Number(event.target.value))
+                    }/>
+                </Form.Label>
+                <Form.Label>
+                    Led Shape
+                    <Form.Select defaultValue={defaultLedShape} onChange={
+                        (event) => setLedShape(event.target.value as LedShape)
+                    }>
+                        <option value={LedShape.Circle}>Circle</option>
+                        <option value={LedShape.Rectangle}>Rectangle</option>
+                    </Form.Select>
+                </Form.Label>
+            </Row>
             <Form.Label>
                 Led Id
                 <Form.Select aria-describedby='ledIdHelpBlock' defaultValue={defaultLedId} onChange={
@@ -116,9 +115,11 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
                     Check device properties in surface editor to determine this.
                 </Form.Text>
             </Form.Label>
+            <Button id='generateBtn' variant='primary' type='button' onClick={submitClicked}>Generate</Button>
+            <br/>
             Recommended location for layouts are: 'C:\ProgramData\Artemis\user layouts\Any\Fan'
         </Col>
-        <Col lg={6} sm={12}>
+        <Col className="bg-light" lg={6} sm={12}>
             <h3>Rings</h3>
             {
                 fanRings.map((ring, index) => {

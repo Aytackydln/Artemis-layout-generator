@@ -9,7 +9,7 @@ function createXml(width: number) {
   <Author>Aytackydln</Author>
   <Type>Fan</Type>
   <Vendor>Any</Vendor>
-  <Model>${width}Sxx</Model>
+  <Model>${width}mm-generated</Model>
   <Width>${width}</Width>
   <Height>${width}</Height>
   <LedUnitWidth>1</LedUnitWidth>
@@ -84,7 +84,7 @@ function createLed(xmlDoc: Document, xPos: number, yPos: number, ledId: number, 
 }
 
 function calculatePerfectLedSize(angle: number, radius: number): number {
-    return Math.sqrt(
+    return Math.round(Math.sqrt(
         2 * Math.pow(radius, 2) * (1 - Math.cos(angle))
-    );
+    ) * 100) / 100;
 }
