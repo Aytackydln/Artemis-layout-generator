@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "https://Aytackydln.github.io/Artemis-layout-generator/static/css/main.f5ba5a7d.css",
+    "main.js": "https://Aytackydln.github.io/Artemis-layout-generator/static/js/main.dcbbb4d7.js",
+    "static/js/787.2575977f.chunk.js": "https://Aytackydln.github.io/Artemis-layout-generator/static/js/787.2575977f.chunk.js",
+    "index.html": "https://Aytackydln.github.io/Artemis-layout-generator/index.html",
+    "main.f5ba5a7d.css.map": "https://Aytackydln.github.io/Artemis-layout-generator/static/css/main.f5ba5a7d.css.map",
+    "main.dcbbb4d7.js.map": "https://Aytackydln.github.io/Artemis-layout-generator/static/js/main.dcbbb4d7.js.map",
+    "787.2575977f.chunk.js.map": "https://Aytackydln.github.io/Artemis-layout-generator/static/js/787.2575977f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f5ba5a7d.css",
+    "static/js/main.dcbbb4d7.js"
+  ]
+}
