@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Col, Form, Row, InputGroup } from 'react-bootstrap';
-import { LedId, LedShape } from './ArtemisLayout';
+import { LedId, LedShape } from '../ArtemisLayout';
 import { ArrowClockwise, ArrowCounterclockwise, Plus } from 'react-bootstrap-icons';
-import { ToggleComponent } from '../Components/ToggleComponent';
+import { ToggleComponent } from '../../ToggleComponent';
 
 let fanRingId = 0;
 

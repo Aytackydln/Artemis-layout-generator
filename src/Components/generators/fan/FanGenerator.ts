@@ -1,5 +1,5 @@
 import {FanRing, GenerateFanParams} from "./FanLayoutForm";
-import {LedShape} from "./ArtemisLayout";
+import {LedShape} from "../ArtemisLayout";
 
 function createXml(width: number) {
     const xmlTemplate = `<?xml version="1.0" encoding="utf-8"?>
@@ -22,7 +22,7 @@ function createXml(width: number) {
     return parser.parseFromString(xmlTemplate, 'text/xml');
 }
 
-export function createLayout(params: GenerateFanParams): Document {
+export function createFanLayout(params: GenerateFanParams): Document {
     const width = params.fanSize;
     const center = width / 2;
     const xmlDoc = createXml(width);

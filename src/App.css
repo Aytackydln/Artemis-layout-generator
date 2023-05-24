@@ -11,3 +11,7 @@
   top: 0;
   right: 0;
 }
+
+.form-control[type="number" i] {
+  min-width: 4em!important;
+}
