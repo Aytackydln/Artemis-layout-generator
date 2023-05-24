@@ -8,9 +8,12 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const headElement = document.getElementsByTagName("head").item(0)!;
+const baseRef = headElement.getElementsByTagName("base").item(0)!;
+const baseName = baseRef.getAttribute("href")!;
 root.render(
   <React.StrictMode>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter basename={baseName}>
           <App />
       </BrowserRouter>
   </React.StrictMode>
