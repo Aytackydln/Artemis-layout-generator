@@ -1,4 +1,4 @@
-import {LedId, LedShape} from "../ArtemisLayout";
+import {addLed, LedData, LedId, LedShape} from "../ArtemisLayout";
 
 export enum StartLocation {
     TopLeft = "Top Left",
@@ -52,9 +52,9 @@ export function createMonitorLedLayout(params: GenerateMonitorParams): Document 
 
     const functions = [
         (ledId: number) => addHorizontal(xmlDoc, params, ledId, params.top, 0, params.cw), //top border
-        (ledId: number) => addVertical(xmlDoc, params, ledId, params.left, params.width - params.ledSize, params.cw),   //right
+        (ledId: number) => addVertical(xmlDoc, params, ledId, params.right, params.width - params.ledSize, params.cw),   //right
         (ledId: number) => addHorizontal(xmlDoc, params, ledId, params.bot, params.height - params.ledSize, !params.cw), //bot
-        (ledId: number) => addVertical(xmlDoc, params, ledId, params.right, 0, !params.cw), //left border
+        (ledId: number) => addVertical(xmlDoc, params, ledId, params.left, 0, !params.cw), //left border
     ];
 
     let currentLedId = params.startId;
@@ -93,64 +93,34 @@ function addHorizontal(xmlDoc: Document, params: GenerateMonitorParams, ledId: n
     if (leftToRight){
         let xPos = 0;
         for (let i = 0 ; i < ledCount; i++) {
-            createLed(xmlDoc, params, xPos, yPos, ledId++, step, params.ledSize);
+            addLed(xmlDoc, new LedData(params.ledId, ledId++, xPos, yPos, step, params.ledSize, params.ledShape));
             xPos += step;
         }
     }else {
         let xPos = params.width - step;
         for (let i = ledCount ; i > 0; i--) {
-            createLed(xmlDoc, params, xPos, yPos, ledId++, step, params.ledSize);
+            addLed(xmlDoc, new LedData(params.ledId, ledId++, xPos, yPos, step, params.ledSize, params.ledShape));
             xPos -= step;
         }
     }
     return ledId;
 }
 
-function addVertical(xmlDoc: Document, params: GenerateMonitorParams, ledId: number, ledCount: number, xStart: number, topToBottom: boolean = true) {
-    const step = params.height / ledCount;
+function addVertical(xmlDoc: Document, params: GenerateMonitorParams, ledId: number, ledCount: number, xPos: number, topToBottom: boolean = true) {
+    const step = (params.height - 2 * params.ledSize) / ledCount;   //skip first and last leds, corner leds are for horizontal lines
 
     if (topToBottom){
-        let yPos = step;   //skip first and last leds, corner leds are for horizontal lines
-        for (let i = 1 ; i < ledCount - 1; i++) {
-            createLed(xmlDoc, params, xStart, yPos, ledId++, step, params.ledSize);
+        let yPos = params.ledSize;
+        for (let i = 0 ; i < ledCount; i++) {
+            addLed(xmlDoc, new LedData(params.ledId, ledId++, xPos, yPos, params.ledSize, step, params.ledShape));
             yPos += step;
         }
     } else {
-        let yPos = params.height - 2 * step;
-        for (let i = ledCount - 1 ; i > 1; i--) {
-            createLed(xmlDoc, params, xStart, yPos, ledId++, step, params.ledSize);
+        let yPos = params.height - params.ledSize - step;
+        for (let i = ledCount ; i > 0; i--) {
+            addLed(xmlDoc, new LedData(params.ledId, ledId++, xPos, yPos, params.ledSize, step, params.ledShape));
             yPos -= step;
         }
     }
     return ledId;
-}
-
-function createLed(xmlDoc: Document, params: GenerateMonitorParams, xPos: number, yPos: number, ledId: number, width: number, height: number) {
-    const led = xmlDoc.createElement('Led');
-    led.setAttribute('Id', params.ledId + ledId);
-
-    const x = xmlDoc.createElement('X');
-    x.textContent = xPos.toFixed(3);
-    led.appendChild(x);
-
-    const y = xmlDoc.createElement('Y');
-    y.textContent = yPos.toFixed(3);
-    led.appendChild(y);
-
-    const widthTag = xmlDoc.createElement('Width');
-    widthTag.textContent = width.toString();
-    led.appendChild(widthTag);
-
-    const heightTag = xmlDoc.createElement('Height');
-    heightTag.textContent = height.toString();
-    led.appendChild(heightTag);
-
-    if (params.ledShape){
-        const shape = xmlDoc.createElement('Shape');
-        shape.textContent = params.ledShape;
-        led.appendChild(shape);
-    }
-
-    const ledsElement = xmlDoc.querySelector('Leds');
-    ledsElement!.appendChild(led);
 }

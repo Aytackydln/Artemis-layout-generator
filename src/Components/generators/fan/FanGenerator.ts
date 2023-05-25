@@ -1,5 +1,5 @@
 import {FanRing, GenerateFanParams} from "./FanLayoutForm";
-import {LedShape} from "../ArtemisLayout";
+import {addLed, LedData, LedShape} from "../ArtemisLayout";
 
 function createXml(width: number) {
     const xmlTemplate = `<?xml version="1.0" encoding="utf-8"?>
@@ -47,40 +47,10 @@ function addRing(xmlDoc: Document, ring: FanRing, params: GenerateFanParams, cen
         const xPos = Math.max(center + Math.cos(angle) * ringRadius - ledSize/2, 0);
         const yPos = Math.max(center + Math.sin(angle) * ringRadius - ledSize/2, 0);
 
-        createLed(xmlDoc, xPos, yPos, startId++, params, ledSize);
+        addLed(xmlDoc, new LedData(params.ledId, startId++, xPos, yPos, ledSize, ledSize, params.ledShape));
         angle += ring.cw ? -angleStep : angleStep;
     }
     return startId;
-}
-
-function createLed(xmlDoc: Document, xPos: number, yPos: number, ledId: number, params: GenerateFanParams, ledSize: number) {
-    const led = xmlDoc.createElement('Led');
-    led.setAttribute('Id', params.ledId + ledId);
-
-    const x = xmlDoc.createElement('X');
-    x.textContent = xPos.toFixed(3);
-    led.appendChild(x);
-
-    const y = xmlDoc.createElement('Y');
-    y.textContent = yPos.toFixed(3);
-    led.appendChild(y);
-
-    const width = xmlDoc.createElement('Width');
-    width.textContent = ledSize.toString();
-    led.appendChild(width);
-
-    const height = xmlDoc.createElement('Height');
-    height.textContent = ledSize.toString();
-    led.appendChild(height);
-
-    if (params.ledShape){
-        const shape = xmlDoc.createElement('Shape');
-        shape.textContent = params.ledShape;
-        led.appendChild(shape);
-    }
-
-    const ledsElement = xmlDoc.querySelector('Leds');
-    ledsElement!.appendChild(led);
 }
 
 function calculatePerfectLedSize(angle: number, radius: number): number {
