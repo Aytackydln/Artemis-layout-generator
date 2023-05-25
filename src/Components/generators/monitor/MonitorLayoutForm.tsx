@@ -6,6 +6,7 @@ import {ToggleComponent} from "../../ToggleComponent";
 import {ArrowClockwise, ArrowCounterclockwise} from "react-bootstrap-icons";
 
 const defaultStartLocation = StartLocation.TopLeft;
+const defaultCw = true;
 
 const defaultWidth = 500;
 const defaultHeight = 300;
@@ -22,7 +23,7 @@ const defaultLedSize = 20;
 
 export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParams) => void }) {
     const [startLocation, setStartLocation] = useState<StartLocation>(defaultStartLocation);
-    const [cw, setCw] = useState<boolean>(true);
+    const [cw, setCw] = useState<boolean>(defaultCw);
 
     const [width, setWidth] = useState<number>(defaultWidth);
     const [height, setHeight] = useState<number>(defaultHeight);

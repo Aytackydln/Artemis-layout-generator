@@ -48,7 +48,7 @@ function addRing(xmlDoc: Document, ring: FanRing, params: GenerateFanParams, cen
         const yPos = Math.max(center + Math.sin(angle) * ringRadius - ledSize/2, 0);
 
         addLed(xmlDoc, new LedData(params.ledId, startId++, xPos, yPos, ledSize, ledSize, params.ledShape));
-        angle += ring.cw ? -angleStep : angleStep;
+        angle += ring.cw ? angleStep : -angleStep;
     }
     return startId;
 }

@@ -79,7 +79,7 @@ export function createMonitorLedLayout(params: GenerateMonitorParams): Document 
             currentLedId = functions[(i + startSide)%4](currentLedId);
         }
     } else {
-        for (let i = 4; i > 0; i--) {   //4 sides
+        for (let i = 3; i >= 0; i--) {   //4 sides
             currentLedId = functions[(i + startSide)%4](currentLedId);
         }
     }

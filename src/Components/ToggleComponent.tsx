@@ -16,8 +16,9 @@ export function ToggleComponent(props: Props) {
         <Button
             {...props.buttonProps}
             onClick={() => {
-                setCurrentValue(!currentValue);
-                props.onToggled(currentValue);
+                const newValue = !currentValue;
+                setCurrentValue(newValue);
+                props.onToggled(newValue);
             }}
         >
             {currentValue ? props.on : props.off}
