@@ -97,6 +97,7 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
                 }>
                     <option value={LedId.LedStripe}>LedStripe#</option>
                     <option value={LedId.Fan}>Fan#</option>
+                    <option value={LedId.Mainboard}>Mainboard#</option>
                 </Form.Select>
                 <Form.Text id='ledIdHelpBlock'>
                     Led id differs depending on device controller.<br/>
