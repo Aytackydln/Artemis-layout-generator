@@ -105,8 +105,8 @@ const Layout = (props: {result: string, fileName: string}) => {
             <div className="flex-fill align-self-stretch textarea-container">
                 <Form.Control as="textarea" className='flex-fill align-self-stretch' readOnly value={props.result}/>
                 <div className="buttons">
-                    <Button variant="outline-primary" onClick={onDownload}><Download/></Button>
-                    <Button id="copyBtn" variant="outline-primary" onClick={onCopy}><Clipboard/></Button>
+                    <Button variant="primary" onClick={onDownload}><Download/></Button>
+                    <Button id="copyBtn" variant="primary" onClick={onCopy}><Clipboard/></Button>
                 </div>
             </div>
         </Container>
