@@ -13,7 +13,7 @@ import { createMonitorLedLayout, GenerateMonitorParams} from "./Components/gener
 
 function App() {
 
-    const [result, setResult] = useState('');
+    const [result, setResult] = useState('Generated Xml will show up here');
     const [fileName, setFileName] = useState('');
 
     const fanGenerateSubmitted = (args: GenerateFanParams) => {

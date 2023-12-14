@@ -71,7 +71,7 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
     }
 
     return <Row className='justify-content-md-center'>
-        <Col lg={3} sm={12}>
+        <Col className="bg-body-secondary" lg={3} sm={12}>
             <h3>Options</h3>
             <Row>
                 <Form.Label>
@@ -118,9 +118,10 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
             </Form.Label>
             <Button id='generateBtn' variant='primary' type='button' onClick={submitClicked}>Generate</Button>
             <br/>
-            Recommended location for layouts are: 'C:\ProgramData\Artemis\user layouts\Any\Fan'
+            Recommended location for layouts are:
+            <div className="text-nowrap">C:\ProgramData\Artemis\user layouts\Brand\Fan</div>
         </Col>
-        <Col className="bg-light" lg={6} sm={12}>
+        <Col className="bg-body-tertiary" lg={6} sm={12}>
             <h3>Rings</h3>
             {
                 fanRings.map((ring, index) => {
