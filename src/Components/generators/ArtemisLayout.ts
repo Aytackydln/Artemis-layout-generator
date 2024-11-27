@@ -3,7 +3,8 @@ export enum LedId {
     LedStripe = "LedStripe",
     Fan = "Fan",
     MousePad = "Mousepad",
-    Mainboard = "Mainboard"
+    Mainboard = "Mainboard",
+    Custom = "Custom",
 }
 
 export enum LedShape {

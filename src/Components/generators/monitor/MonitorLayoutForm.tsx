@@ -144,6 +144,7 @@ export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParam
                         <option value={LedId.Fan}>Fan#</option>
                         <option value={LedId.MousePad}>Mousepad#</option>
                         <option value={LedId.Mainboard}>Mainboard#</option>
+                        <option value={LedId.Custom}>Custom#</option>
                     </Form.Select>
                     <Form.Text id='ledIdHelpBlock'>
                         Led id differs depending on device controller.<br/>
