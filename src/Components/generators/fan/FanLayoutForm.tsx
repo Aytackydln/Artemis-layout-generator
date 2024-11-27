@@ -81,7 +81,7 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
                     }/>
                 </Form.Label>
                 <Form.Label>
-                    Led Shape
+                    LED Shape
                     <Form.Select defaultValue={defaultLedShape} onChange={
                         (event) => setLedShape(event.target.value as LedShape)
                     }>
@@ -91,7 +91,7 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
                 </Form.Label>
             </Row>
             <Form.Label>
-                Led Id
+                LED Id
                 <Form.Select aria-describedby='ledIdHelpBlock' defaultValue={defaultLedId} onChange={
                     (event) => setLedId(event.target.value as LedId)
                 }>
@@ -101,7 +101,7 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
                     <option value={LedId.Custom}>Custom#</option>
                 </Form.Select>
                 <Form.Text id='ledIdHelpBlock'>
-                    Led id differs depending on device controller.<br/>
+                    LED id differs depending on device controller.<br/>
                     OpenRGB - LedStripe#<br/>
                     Others - Fan# (usually)<br/>
                 </Form.Text>
@@ -128,7 +128,7 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
                 fanRings.map((ring, index) => {
                     return <InputGroup key={ring.id}>
                         <InputGroup.Text>
-                            Leds
+                            LEDs
                         </InputGroup.Text>
                         <Form.Control type='number' defaultValue={ring.ledCount} onChange={
                             (event) => ring.ledCount = Number(event.target.value)
@@ -141,13 +141,13 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
                             onToggled={(newValue) => ring.cw = newValue}
                         />
                         <InputGroup.Text>
-                            Radius
+                            Radius (mm)
                         </InputGroup.Text>
                         <Form.Control type='number' defaultValue={ring.radius} onChange={
                             (event) => ring.radius = Number(event.target.value)
                         }/>
                         <InputGroup.Text>
-                            Offset (°)
+                            Start Offset (°)
                         </InputGroup.Text>
                         <Form.Control type='number' defaultValue={ring.startOffset} onChange={
                             (event) => ring.startOffset = Number(event.target.value)

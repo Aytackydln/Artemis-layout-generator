@@ -77,7 +77,7 @@ export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParam
                     </InputGroup>
                 </Form.Label>
                 <Form.Label>
-                    Led Counts
+                    LED Counts
                     <InputGroup>
                         <InputGroup.Text>
                             Top
@@ -109,7 +109,7 @@ export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParam
                     </Form.Text>
                 </Form.Label>
                 <Form.Label>
-                    Led Size(mm)
+                    LED Size(mm)
                     <Form.Control type='number' defaultValue={defaultLedSize} onChange={
                         (event) => setLedSize(Number(event.target.value))
                     }/>
@@ -125,7 +125,7 @@ export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParam
             <h3>Options</h3>
             <Row>
                 <Form.Label>
-                    Led Shape
+                    LED Shape
                     <Form.Select defaultValue={defaultLedShape} onChange={
                         (event) => setLedShape(event.target.value as LedShape)
                     }>
@@ -136,7 +136,7 @@ export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParam
             </Row>
             <Row>
                 <Form.Label>
-                    Led Id
+                    LED Id
                     <Form.Select aria-describedby='ledIdHelpBlock' defaultValue={defaultLedId} onChange={
                         (event) => setLedId(event.target.value as LedId)
                     }>
@@ -147,7 +147,7 @@ export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParam
                         <option value={LedId.Custom}>Custom#</option>
                     </Form.Select>
                     <Form.Text id='ledIdHelpBlock'>
-                        Led id differs depending on device controller.<br/>
+                        LED id differs depending on device controller.<br/>
                         OpenRGB - LedStripe#<br/>
                         Others - Fan# (usually)<br/>
                     </Form.Text>
