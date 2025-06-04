@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Button, Col, Form, Row, InputGroup } from 'react-bootstrap';
-import { LedId, LedShape } from '../ArtemisLayout';
-import { ArrowClockwise, ArrowCounterclockwise, Plus } from 'react-bootstrap-icons';
-import { ToggleComponent } from '../../ToggleComponent';
+import React, {useState} from 'react';
+import {Button, Col, Form, Row, InputGroup} from 'react-bootstrap';
+import {LedId, LedShape} from '../ArtemisLayout';
+import {ArrowClockwise, ArrowCounterclockwise, Plus} from 'react-bootstrap-icons';
+import {ToggleComponent} from '../../ToggleComponent';
+import {useForm} from "react-hook-form";
 
 let fanRingId = 0;
 
@@ -35,22 +36,23 @@ const defaultFanRing: FanRing = {
     cw: true,
 };
 
-export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => void }) {
-    const [fanSize, setFanSize] = useState<number>(defaultFanSize);
-    const [ledShape, setLedShape] = useState<LedShape>(defaultLedShape);
-    const [ledId, setLedId] = useState<LedId>(defaultLedId);
-    const [startId, setStartId] = useState(defaultStartId);
+export function FanLayoutForm(props: Readonly<{ onSubmit: (args: GenerateFanParams) => void }>) {
+
+    const {register, handleSubmit, getValues} = useForm<GenerateFanParams>({
+        defaultValues: {
+            fanSize: defaultFanSize,
+            ledShape: defaultLedShape,
+            ledId: defaultLedId,
+            startId: defaultStartId,
+            fanRings: [defaultFanRing],
+        },
+    })
 
     const [fanRings, setFanRings] = useState<FanRing[]>([defaultFanRing]);
 
-    const submitClicked = () => {
-        props.onSubmit({
-            fanSize,
-            ledShape,
-            ledId,
-            startId,
-            fanRings,
-        });
+    const submitClicked = (params: GenerateFanParams) => {
+        params.fanRings = fanRings;
+        props.onSubmit(params);
     };
 
     function addFanRing() {
@@ -58,7 +60,7 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
             id: fanRingId++,
             ledCount: 8,
             ledSize: 0,
-            radius: fanSize / 2,
+            radius: getValues()["fanSize"] / 2,
             cw: true,
             startOffset: 0,
         }];
@@ -76,15 +78,11 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
             <Row>
                 <Form.Label>
                     Fan Size(mm)
-                    <Form.Control type='number' defaultValue={defaultFanSize} onChange={
-                        (event) => setFanSize(Number(event.target.value))
-                    }/>
+                    <Form.Control {...register("fanSize")}/>
                 </Form.Label>
                 <Form.Label>
                     LED Shape
-                    <Form.Select defaultValue={defaultLedShape} onChange={
-                        (event) => setLedShape(event.target.value as LedShape)
-                    }>
+                    <Form.Select {...register("ledShape")}>
                         <option value={LedShape.Circle}>Circle</option>
                         <option value={LedShape.Rectangle}>Rectangle</option>
                     </Form.Select>
@@ -92,15 +90,13 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
             </Row>
             <Form.Label>
                 LED Id
-                <Form.Select aria-describedby='ledIdHelpBlock' defaultValue={defaultLedId} onChange={
-                    (event) => setLedId(event.target.value as LedId)
-                }>
+                <Form.Select aria-describedby='ledIdHelpBlock' {...register("ledId")}>
                     <option value={LedId.LedStripe}>LedStripe#</option>
                     <option value={LedId.Fan}>Fan#</option>
                     <option value={LedId.Mainboard}>Mainboard#</option>
                     <option value={LedId.Custom}>Custom#</option>
                 </Form.Select>
-                <Form.Text id='ledIdHelpBlock'>
+                <Form.Text>
                     LED id differs depending on device controller.<br/>
                     OpenRGB - LedStripe#<br/>
                     Others - Fan# (usually)<br/>
@@ -108,16 +104,13 @@ export function FanLayoutForm(props: { onSubmit: (args: GenerateFanParams) => vo
             </Form.Label>
             <Form.Label>
                 Starting led id
-                <Form.Control id='startIdInpt' type='number'
-                              aria-describedby='startIdHelpBlock' defaultValue={defaultStartId} onChange={
-                    (event) => setStartId(Number(event.target.value))
-                }/>
-                <Form.Text id='startIdHelpBlock'>
+                <Form.Control aria-describedby='startIdHelpBlock' {...register("startId")} />
+                <Form.Text>
                     Depending on device connector different connected devices may start from different numbers.
                     Check device properties in surface editor to determine this.
                 </Form.Text>
             </Form.Label>
-            <Button id='generateBtn' variant='primary' type='button' onClick={submitClicked}>Generate</Button>
+            <Button variant='primary' type='button' onClick={handleSubmit(submitClicked)}>Generate</Button>
             <br/>
             Recommended location for layouts are:
             <div className="text-nowrap">C:\ProgramData\Artemis\user layouts\Brand\Fan</div>

@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Button, Col, Form, InputGroup, Row} from 'react-bootstrap';
 import {LedId, LedShape} from '../ArtemisLayout';
 import {GenerateMonitorParams, StartLocation} from "./MonitorGenerator";
 import {ToggleComponent} from "../../ToggleComponent";
 import {ArrowClockwise, ArrowCounterclockwise} from "react-bootstrap-icons";
+import {useForm} from "react-hook-form";
 
 const defaultStartLocation = StartLocation.TopLeft;
 const defaultCw = true;
@@ -21,38 +22,26 @@ const defaultLedId = LedId.LedStripe;
 const defaultStartId = 1;
 const defaultLedSize = 20;
 
-export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParams) => void }) {
-    const [startLocation, setStartLocation] = useState<StartLocation>(defaultStartLocation);
-    const [cw, setCw] = useState<boolean>(defaultCw);
+export function MonitorLayoutForm(props: Readonly<{ onSubmit: (args: GenerateMonitorParams) => void }>) {
+    const {register, handleSubmit, getValues, setValue} = useForm<GenerateMonitorParams>({
+        defaultValues: {
+            startLocation: defaultStartLocation,
+            cw: defaultCw,
+            width: defaultWidth,
+            height: defaultHeight,
+            ledShape: defaultLedShape,
+            ledSize: defaultLedSize,
+            ledId: defaultLedId,
+            startId: defaultStartId,
+            left: defaultLeft,
+            top: defaultTop,
+            right: defaultRight,
+            bot: defaultBot,
+        },
+    });
 
-    const [width, setWidth] = useState<number>(defaultWidth);
-    const [height, setHeight] = useState<number>(defaultHeight);
-
-    const [top, setTop] = useState(defaultTop);
-    const [right, setRight] = useState(defaultRight);
-    const [bot, setBot] = useState(defaultBot);
-    const [left, setLeft] = useState(defaultLeft);
-
-    const [ledShape, setLedShape] = useState<LedShape>(defaultLedShape);
-    const [ledId, setLedId] = useState<LedId>(defaultLedId);
-    const [startId, setStartId] = useState(defaultStartId);
-    const [ledSize, setLedSize] = useState(defaultLedSize);
-
-    const submitClicked = () => {
-        props.onSubmit({
-            startLocation,
-            cw,
-            width,
-            height,
-            ledShape,
-            ledSize,
-            ledId,
-            startId,
-            left,
-            top,
-            right,
-            bot,
-        });
+    const submitClicked = (formData: GenerateMonitorParams) => {
+        props.onSubmit(formData);
     };
 
     return <Row className='justify-content-md-center'>
@@ -65,15 +54,11 @@ export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParam
                         <InputGroup.Text>
                             Width
                         </InputGroup.Text>
-                        <Form.Control type='number' defaultValue={defaultWidth} onChange={
-                            (event) => setWidth(Number(event.target.value))
-                        }/>
+                        <Form.Control {...register("width")} />
                         <InputGroup.Text>
                             Height
                         </InputGroup.Text>
-                        <Form.Control type='number' defaultValue={defaultHeight} onChange={
-                            (event) => setHeight(Number(event.target.value))
-                        }/>
+                        <Form.Control {...register("height")} />
                     </InputGroup>
                 </Form.Label>
                 <Form.Label>
@@ -82,41 +67,31 @@ export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParam
                         <InputGroup.Text>
                             Top
                         </InputGroup.Text>
-                        <Form.Control type='number' aria-describedby='ledCountsHelpBlock' defaultValue={defaultTop} onChange={
-                            (event) => setTop(Number(event.target.value))
-                        }/>
+                        <Form.Control {...register("top")}/>
                         <InputGroup.Text>
                             Right
                         </InputGroup.Text>
-                        <Form.Control type='number' defaultValue={defaultRight} onChange={
-                            (event) => setRight(Number(event.target.value))
-                        }/>
+                        <Form.Control {...register("right")}/>
                         <InputGroup.Text>
                             Bottom
                         </InputGroup.Text>
-                        <Form.Control type='number' defaultValue={defaultBot} onChange={
-                            (event) => setBot(Number(event.target.value))
-                        }/>
+                        <Form.Control {...register("bot")}/>
                         <InputGroup.Text>
                             Left
                         </InputGroup.Text>
-                        <Form.Control type='number' defaultValue={defaultLeft} onChange={
-                            (event) => setLeft(Number(event.target.value))
-                        }/>
+                        <Form.Control {...register("left")}/>
                     </InputGroup>
-                    <Form.Text id='ledCountsHelpBlock'>
+                    <Form.Text>
                         Corner leds should be counted in top/bottom
                     </Form.Text>
                 </Form.Label>
                 <Form.Label>
                     LED Size(mm)
-                    <Form.Control type='number' defaultValue={defaultLedSize} onChange={
-                        (event) => setLedSize(Number(event.target.value))
-                    }/>
+                    <Form.Control {...register("ledSize")}/>
                 </Form.Label>
             </Row>
             <br/>
-            <Button id='generateBtn' variant='primary' type='button' onClick={submitClicked}>Generate</Button>
+            <Button variant='primary' type='button' onClick={handleSubmit(submitClicked)}>Generate</Button>
             <br/>
             Recommended location for layouts are:
             <div className="text-nowrap">C:\ProgramData\Artemis\user layouts\Brand\Monitor</div>
@@ -126,9 +101,7 @@ export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParam
             <Row>
                 <Form.Label>
                     LED Shape
-                    <Form.Select defaultValue={defaultLedShape} onChange={
-                        (event) => setLedShape(event.target.value as LedShape)
-                    }>
+                    <Form.Select {...register("ledShape")}>
                         <option value={LedShape.Circle}>Circle</option>
                         <option value={LedShape.Rectangle}>Rectangle</option>
                     </Form.Select>
@@ -137,16 +110,14 @@ export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParam
             <Row>
                 <Form.Label>
                     LED Id
-                    <Form.Select aria-describedby='ledIdHelpBlock' defaultValue={defaultLedId} onChange={
-                        (event) => setLedId(event.target.value as LedId)
-                    }>
+                    <Form.Select aria-describedby='ledIdHelpBlock' {...register("ledId")}>
                         <option value={LedId.LedStripe}>LedStripe#</option>
                         <option value={LedId.Fan}>Fan#</option>
                         <option value={LedId.MousePad}>Mousepad#</option>
                         <option value={LedId.Mainboard}>Mainboard#</option>
                         <option value={LedId.Custom}>Custom#</option>
                     </Form.Select>
-                    <Form.Text id='ledIdHelpBlock'>
+                    <Form.Text>
                         LED id differs depending on device controller.<br/>
                         OpenRGB - LedStripe#<br/>
                         Others - Fan# (usually)<br/>
@@ -155,11 +126,8 @@ export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParam
             </Row>
             <Form.Label>
                 Starting led id
-                <Form.Control id='startIdInpt' type='number'
-                              aria-describedby='startIdHelpBlock' defaultValue={defaultStartId} onChange={
-                    (event) => setStartId(Number(event.target.value))
-                }/>
-                <Form.Text id='startIdHelpBlock'>
+                <Form.Control aria-describedby='startIdHelpBlock' {...register("startId")}/>
+                <Form.Text>
                     Depending on device connector different connected devices may start from different numbers.
                     Check device properties in surface editor to determine this.
                 </Form.Text>
@@ -168,23 +136,24 @@ export function MonitorLayoutForm(props: { onSubmit: (args: GenerateMonitorParam
             <Form.Label>
                 Start Corner
                 <InputGroup>
-                    <Form.Select aria-describedby='startLocationHelpBlock' defaultValue={defaultStartLocation} onChange={
-                        (event) => setStartLocation(event.target.value as StartLocation)
-                    }>
+                    <Form.Select aria-describedby='startLocationHelpBlock' {...register("startLocation")}>
                         <option value={defaultStartLocation}>Top Left</option>
                         <option value={StartLocation.TopRight}>Top Right</option>
                         <option value={StartLocation.BottomRight}>Bottom Right</option>
                         <option value={StartLocation.BottomLeft}>Bottom Left</option>
                     </Form.Select>
+                    <InputGroup.Text>
+                        Direction:
+                    </InputGroup.Text>
                     <ToggleComponent
-                        value={cw}
+                        value={getValues()["cw"]}
                         buttonProps={{variant: 'light'}}
                         on={<ArrowClockwise/>}
                         off={<ArrowCounterclockwise/>}
-                        onToggled={(newValue) => setCw(newValue)}
+                        onToggled={(newValue) => setValue("cw", newValue)}
                     />
                 </InputGroup>
-                <Form.Text id='startLocationHelpBlock'>
+                <Form.Text>
                     The corner starting led will begin.
                     Also make sure rotation is right.
                 </Form.Text>

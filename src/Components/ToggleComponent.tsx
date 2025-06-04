@@ -9,7 +9,7 @@ export type Props = {
     buttonProps?: ButtonProps,
 };
 
-export function ToggleComponent(props: Props) {
+export function ToggleComponent(props: Readonly<Props>) {
     const [currentValue, setCurrentValue] = useState(props.value);
 
     return (
