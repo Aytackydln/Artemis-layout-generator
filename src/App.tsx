@@ -9,6 +9,8 @@ import { createFanLayout } from './Components/generators/fan/FanGenerator';
 import {Outlet, RouteObject, useLocation, useRoutes} from "react-router-dom";
 import {MonitorLayoutForm} from "./Components/generators/monitor/MonitorLayoutForm";
 import { createMonitorLedLayout, GenerateMonitorParams} from "./Components/generators/monitor/MonitorGenerator";
+import MatrixGenerator from "./Components/generators/matrix/MatrixGenerator";
+import {MatrixLayoutForm} from "./Components/generators/matrix/MatrixLayoutForm";
 
 
 function App() {
@@ -40,8 +42,15 @@ function App() {
         setFileName(`${args.width}x${args.height}MonitorLeds.xml`);
     };
 
+    const matrixGenerateSubmitted = (args: MatrixGenerator) => {
+        const document = args.createXml();
+        setResult(document.documentElement.outerHTML);
+        setFileName(`${args.rows}x${args.columns}Matrix.xml`);
+    }
+
     const fanLayoutForm = <FanLayoutForm onSubmit={fanGenerateSubmitted}/>
     const monitorLayoutForm = <MonitorLayoutForm onSubmit={monitorGenerateSubmitted}/>
+    const matrixLayoutForm = <MatrixLayoutForm onSubmit={matrixGenerateSubmitted}/>
 
     const routes: RouteObject[] = [
         {
@@ -51,6 +60,7 @@ function App() {
                 { index: true, element: fanLayoutForm },
                 { path: "/fan", element: fanLayoutForm },
                 { path: "/monitor", element: monitorLayoutForm },
+                { path: "/matrix", element: matrixLayoutForm },
             ],
         },
     ]
@@ -88,6 +98,7 @@ const Layout = (props: {result: string, fileName: string}) => {
                     >
                         <Nav.Link href="fan">Fan</Nav.Link>
                         <Nav.Link href="monitor">Monitor</Nav.Link>
+                        <Nav.Link href="matrix">Matrix</Nav.Link>
                         <div className="align-self-stretch" style={{marginLeft: 'auto'}} />{/* //seperate links*/}
                         <Nav.Link style={{marginTop: 'auto'}}//, marginLeft: 'auto'
                                   className="align-self-lg-center align-self-stretch"

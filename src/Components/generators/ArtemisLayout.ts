@@ -5,6 +5,7 @@ export enum LedId {
     MousePad = "Mousepad",
     Mainboard = "Mainboard",
     Custom = "Custom",
+    Matrix = "LEDMatrix",
 }
 
 export enum LedShape {

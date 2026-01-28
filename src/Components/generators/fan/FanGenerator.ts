@@ -6,7 +6,7 @@ function createXml(width: number) {
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>${width}mm Fan</Name>
   <Description>Auto generated</Description>
-  <Author>Aytackydln</Author>
+  <Author>Aytackydln's Layout Generator</Author>
   <Type>Fan</Type>
   <Vendor>Any</Vendor>
   <Model>${width}mm-generated</Model>

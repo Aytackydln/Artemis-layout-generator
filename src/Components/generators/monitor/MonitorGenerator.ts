@@ -31,7 +31,7 @@ function createXml(width: number, height: number) {
 <Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>${width}mm x ${height}mm Monitor Leds</Name>
   <Description>Auto generated</Description>
-  <Author>Aytackydln</Author>
+  <Author>Aytackydln's Layout Generator</Author>
   <Type>Monitor</Type>
   <Vendor>Any</Vendor>
   <Model>${width}x${height}mm-generated</Model>
