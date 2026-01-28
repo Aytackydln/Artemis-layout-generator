@@ -49,9 +49,9 @@ export default class MatrixGenerator {
     }
 
     addRow(xmlDoc: Document, rowIndex: number, startId: number) {
+        const yPos = rowIndex * this.ledHeight + this.ledSpaceY
         for (let colIndex = 0; colIndex < this.columns; colIndex++) {
             const xPos = colIndex * this.ledWidth + this.ledSpaceX
-            const yPos = rowIndex * this.ledHeight + this.ledSpaceY
 
             addLed(xmlDoc, new LedData(
                 this.ledId,

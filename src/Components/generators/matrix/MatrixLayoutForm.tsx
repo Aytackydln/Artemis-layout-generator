@@ -9,7 +9,6 @@ export function MatrixLayoutForm(props: Readonly<{ onSubmit: (args: MatrixGenera
         defaultValues: new MatrixGenerator()
     });
 
-
     const submitClicked = (formData: MatrixGenerator) => {
         props.onSubmit(formData);
     };
@@ -57,13 +56,16 @@ export function MatrixLayoutForm(props: Readonly<{ onSubmit: (args: MatrixGenera
                         </InputGroup.Text>
                         <Form.Control {...register("ledSpaceY")}/>
                     </InputGroup>
+                    <Form.Text>
+                        It's good idea to choose size/margins divisible by your render scale
+                    </Form.Text>
                 </Form.Label>
             </Row>
             <br/>
             <Button variant='primary' type='button' onClick={handleSubmit(submitClicked)}>Generate</Button>
             <br/>
             Recommended location for layouts are:
-            <div className="text-nowrap">C:\ProgramData\Artemis\user layouts\Brand\Monitor</div>
+            <div className="text-nowrap">C:\ProgramData\Artemis\user layouts\Brand\Matrix</div>
         </Col>
         <Col className="bg-body-tertiary" lg={4} sm={12}>
             <h3>Options</h3>
