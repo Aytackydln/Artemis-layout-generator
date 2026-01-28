@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Artemis-layout-generator/static/css/main.adc341b2.css",
+    "main.js": "/Artemis-layout-generator/static/js/main.8c1473a3.js",
+    "index.html": "/Artemis-layout-generator/index.html",
+    "main.adc341b2.css.map": "/Artemis-layout-generator/static/css/main.adc341b2.css.map",
+    "main.8c1473a3.js.map": "/Artemis-layout-generator/static/js/main.8c1473a3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.adc341b2.css",
+    "static/js/main.8c1473a3.js"
+  ]
+}
